@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 const SimpleInput = (props) => {
+  const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState("");
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -9,6 +10,8 @@ const SimpleInput = (props) => {
     if (enteredName.trim() === "") {
       return;
     }
+    const enteredValue = nameInputRef.current.value;
+    console.log(enteredValue);
     setEnteredName("");
   };
   return (
@@ -16,6 +19,7 @@ const SimpleInput = (props) => {
       <div className="form-control">
         <label htmlFor="name">Your Name</label>
         <input
+          ref={nameInputRef}
           value={enteredName}
           type="text"
           id="name"
