@@ -36,10 +36,21 @@ const BasicForm = (props) => {
     lastNameReset();
     emailNameReset();
   };
+  let formIsValid = false;
+  if (nameIsValid && lastNameIsValid && emailIsValid) {
+    formIsValid = true;
+  }
+
+  const nameClasses = nameHasError ? "form-control invalid" : "form-control";
+  const lastNameClasses = lastNameHasError
+    ? "form-control invalid"
+    : "form-control";
+  const emailClasses = emailHasError ? "form-control invalid" : "form-control";
+
   return (
     <form onSubmit={formSubmitHandler}>
       <div className="control-group">
-        <div className="form-control">
+        <div className={nameClasses}>
           <label htmlFor="name">First Name</label>
           <input
             value={nameInput}
@@ -52,7 +63,7 @@ const BasicForm = (props) => {
             <p className="error-text">You must enter a First Name.</p>
           )}
         </div>
-        <div className="form-control">
+        <div className={lastNameClasses}>
           <label htmlFor="lastName">Last Name</label>
           <input
             value={lastNameInput}
@@ -66,7 +77,7 @@ const BasicForm = (props) => {
           )}
         </div>
       </div>
-      <div className="form-control">
+      <div className={emailClasses}>
         <label htmlFor="email">E-Mail Address</label>
         <input
           value={emailInput}
@@ -80,7 +91,7 @@ const BasicForm = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
